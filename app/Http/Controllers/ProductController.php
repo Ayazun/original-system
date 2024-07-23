@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\product;
+use App\Models\Product;
 use App\Models\Company;
 use App\Http\Requests\ArticleRequest;
 use Illuminate\Support\Facades\DB;
@@ -195,7 +195,7 @@ class ProductController extends Controller
         $products = (new Product())->search($keyword, $searchCompany, $request);
         $companies = Company::all();
     
-        return view('product.index', ['products' => $products , 'companies' => $companies ,'keyword' => $keyword, 'searchCompany' => $searchCompany])->render();
+        return view('index', ['products' => $products , 'companies' => $companies ,'keyword' => $keyword, 'searchCompany' => $searchCompany])->render();
     
     }
 

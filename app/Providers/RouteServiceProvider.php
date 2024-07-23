@@ -24,6 +24,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
+    protected $namespace = 'App\Http\Controllers';
     public function boot()
     {
         $this->configureRateLimiting();
@@ -51,11 +52,6 @@ class RouteServiceProvider extends ServiceProvider
         });
     }
 
-    protected function redirectTo($request)
-    {
-        if(!$request->expectsJson()){
-            return route('admin.showLogin');
-        }
-    }
+   
 }
 
