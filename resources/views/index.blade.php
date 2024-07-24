@@ -48,7 +48,7 @@
             <th>comment</th>
             <th>img_path</th>
         </tr>
-        @foreach ((array)$products as $product)
+        @foreach ($products as $product)
         <tr>
             <td style="text-align:right">{{ $product->id }}</td>
             <td>{{ $product->product_name }}</td>

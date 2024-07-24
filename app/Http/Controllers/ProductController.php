@@ -31,18 +31,10 @@ class ProductController extends Controller
     
     public function create()
     {
-        DB::beginTransaction();
-        try {
-        // 登録処理呼び出し
-        //$companiesにindexでreturnしたものが代入される。
+       
         $companies_model = new Company();
-        $companies = $companies_model->index();
+        $companies = $companies_model->getList();
 
-        DB::commit();
-    } catch (\Exception $e) {
-        DB::rollback();
-        return back();
-    }
 
         return view ('create',['companies'=>$companies]);
        
