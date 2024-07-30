@@ -177,7 +177,7 @@ class ProductController extends Controller
     {
         // キーワードと検索対象のメーカーIDを取得
         $keyword = $request->input('keyword');
-        $searchCompany = $request->input('company_id');
+        $searchCompany = $request->input('company-id');
        
         // Product モデルのインスタンスを作成
         $products = new Product();

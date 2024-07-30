@@ -131,7 +131,10 @@ class Product extends Model
     // products テーブルと companies テーブルを join
     $query = DB::table('products')
         ->join('companies', 'products.company-id', '=', 'companies.id')
-        ->select('products.*', 'companies.company_name');
+        ->select('products.*', 'companies.company_name')
+        ->get();
+    
+    return $query;
 
     if ($keyword) {
         $query->where('products.product_name', 'like', "%{$keyword}%");
