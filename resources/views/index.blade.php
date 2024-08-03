@@ -22,7 +22,7 @@
                 <div class="left">
                     <div class="form-group">
                      <select class="form-select" id="company-id" name="company-id" placeholder="会社名を検索">
-                       <option>メーカーを選択してください</option>
+                       <option value="">メーカーを選択してください</option>
                     @foreach ($companies as $company)
                     <option value= "{{ $company->id }}" {{ $company->company_name }}>   
                     {{ $company->company_name }}
