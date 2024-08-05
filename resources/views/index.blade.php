@@ -31,7 +31,12 @@
                     </select>
                     </div>
                 </div>  
-              
+                <div id='form_price'>
+                <input type="number" name="min_price" class="form-control" placeholder="最小価格" value="{{ request('min_price') }}">
+                <input type="number" name="max_price" class="form-control" placeholder="最大価格" value="{{ request('max_price') }}">
+                <input type="number" name="min_stock" class="form-control" placeholder="最小在庫" value="{{ request('min_stock') }}">
+                <input type="number" name="max_stock" class="form-control" placeholder="最大在庫" value="{{ request('max_stock') }}">
+    </div>
             <div class="card-footer">
                 <button type="submit" class="btn w-100 btn-success">検索</button>
             </div>
@@ -68,5 +73,4 @@
         </tr>
         @endforeach
     </table>
-
 @endsection

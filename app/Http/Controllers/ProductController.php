@@ -174,11 +174,11 @@ class ProductController extends Controller
     }
     
     public function search(Request $request)
-    {
+    {Log::info('処理開始');
         // キーワードと検索対象のメーカーIDを取得
         $keyword = $request->input('keyword');
         $searchCompany = $request->input('company-id');
-       
+        Log::info($searchCompany);
         // Product モデルのインスタンスを作成
         $products = new Product();
         $companies = new Company();

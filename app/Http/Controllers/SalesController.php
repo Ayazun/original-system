@@ -30,15 +30,15 @@ class SalesController extends Controller
 
                 DB::commit();
 
-                return response()->json(['message' => config('messages.purchase')], 200);
-            } else {
+               return response()->json(['message' => config('messages.purchase')], 200);
+           } else {
                 //在庫が不足している場合
                 DB::rollBack();
                 return response()->json(['message' => config('messages.purchase_0')], 400);
             }
         } catch (\Exception $e) {
             //例外が発生した場合
-            DB::rollBack();
+           DB::rollBack();
 
             return response()->json(['message' => 'Error: ' . $e->getMessage()], 500);
         }
