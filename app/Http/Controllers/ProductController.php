@@ -83,13 +83,14 @@ class ProductController extends Controller
 
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, Products $products,$id)
     {   
      DB::beginTransaction();   
      try{
         $model = new Product;
         $model -> destroyProduct($id);
-
+        $product = Product::findOrFail($request->id);
+        $product->delete();
         DB::commit();
     } catch (Exception $e) {   
         DB::rollBack();

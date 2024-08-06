@@ -42,6 +42,44 @@
             </div>
         </form>
     
+        <script>
+
+             // ここからトークン送信処理
+            $.ajaxSetup({
+                headers: {
+                          'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                         }
+                        });
+
+            //ここから非同期処理の記述
+             $(function() {
+                //削除ボタンに"btn-danger"クラスを設定しているため、ボタンが押された場合に開始されます
+                             $('.btn-danger').on('click', function() {
+                               var deleteConfirm = confirm('削除してよろしいでしょうか？');
+               //　メッセージをOKした時（true)の場合、次に進みます 
+                                   if(deleteConfirm == true) {
+                                     var clickEle = $(this)
+               //$(this)は自身（今回は押されたボタンのinputタグ)を参照します
+               //　"clickEle"に対して、inputタグの設定が全て代入されます
+               
+                                     var userID = clickEle.attr('data-user_id');
+               
+               $.ajax({
+                    type: 'POST',
+                    url: '/destroy/'+userID,
+                    dataType: 'json',
+                    data: {'id':userID},
+               })
+            } else {
+                    (function(e) {
+                      e.preventDefault()
+                    });
+            };
+                    });
+            });
+ 
+        </script>
+
 
     <table class="table table-bordered">
         <tr>
@@ -66,7 +104,9 @@
             <form action="{{route('products.destroy',$product->id)}}"method="POST">
             @csrf
             @method('delete')
-            <button type="submit" class="btn btn-sm btn-danger" onclick='return confirm("削除しますか？");'>削除</button>
+            <form  class="id">
+                <input id="deleteTarget" data-user_id="{{$product->id}}" type="submit" class="btn btn-danger btn-sm mx-1" value="削除">
+            </form>
             </form>
             </td>
             <td><a href="{{ route('products.show', ['id'=>$product->id])}}" class="btn btn-primary">詳細</a></td>

@@ -12,8 +12,12 @@ class SalesController extends Controller
     public function purchase(Request $request)
     {
         $productId = $request->input('product_id');
+        $stock = $request->input('stock');
+        $price = $request->input('price');
         $quantity = $request->input('quantity');
         $product = Product::find($productId);
+        $product = Product::find($stock);
+        $product = Product::find($price);
 
         DB::beginTransaction();
 
