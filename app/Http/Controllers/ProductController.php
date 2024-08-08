@@ -187,6 +187,9 @@ class ProductController extends Controller
         // インスタンスを介して検索メソッドを呼び出し
         $products = (new Product())->search($keyword, $searchCompany, $request);
         $companies = Company::all();
+
+        $products = Products::findOrFail($request->id);
+        $products->delete();
     
         return view('index', ['products' => $products , 'companies' => $companies ,'keyword' => $keyword, 'searchCompany' => $searchCompany])->render();
     

@@ -41,45 +41,6 @@
                 <button type="submit" class="btn w-100 btn-success">検索</button>
             </div>
         </form>
-    
-        <script>
-
-             // ここからトークン送信処理
-            $.ajaxSetup({
-                headers: {
-                          'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                         }
-                        });
-
-            //ここから非同期処理の記述
-             $(function() {
-                //削除ボタンに"btn-danger"クラスを設定しているため、ボタンが押された場合に開始されます
-                             $('.btn-danger').on('click', function() {
-                               var deleteConfirm = confirm('削除してよろしいでしょうか？');
-               //　メッセージをOKした時（true)の場合、次に進みます 
-                                   if(deleteConfirm == true) {
-                                     var clickEle = $(this)
-               //$(this)は自身（今回は押されたボタンのinputタグ)を参照します
-               //　"clickEle"に対して、inputタグの設定が全て代入されます
-               
-                                     var userID = clickEle.attr('data-user_id');
-               
-               $.ajax({
-                    type: 'POST',
-                    url: '/destroy/'+userID,
-                    dataType: 'json',
-                    data: {'id':userID},
-               })
-            } else {
-                    (function(e) {
-                      e.preventDefault()
-                    });
-            };
-                    });
-            });
- 
-        </script>
-
 
     <table class="table table-bordered">
         <tr>
@@ -113,4 +74,36 @@
         </tr>
         @endforeach
     </table>
+    
+    <script>
+            // ここからトークン送信処理
+             $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            });
+
+            //ここから非同期処理の記述
+            $(function() {
+            //削除ボタンに"btn-danger"クラスを設定しているため、ボタンが押された場合に開始されます
+                          $('.btn-danger').on('click', function() {
+                            e.preventDefault();
+                            var deleteConfirm = confirm('削除してよろしいでしょうか？');
+            //　メッセージをOKした時（true)の場合、次に進みます 
+                            if(deleteConfirm == true) {
+                            var clickEle = $(this)
+             //$(this)は自身（今回は押されたボタンのinputタグ)を参照します
+             //　"clickEle"に対して、inputタグの設定が全て代入されます
+  
+                            var userID = clickEle.attr('data-user_id');
+  
+            $.ajax({
+                    type: 'POST',
+                    url: '/destroy/'+userID,
+                    dataType: 'json',
+                    data: {'id':userID},
+                })
+            });
+        });
+    </script>
 @endsection
