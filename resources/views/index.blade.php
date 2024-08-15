@@ -84,26 +84,44 @@
             });
 
             //ここから非同期処理の記述
-            $(function() {
+            $(function()) {
             //削除ボタンに"btn-danger"クラスを設定しているため、ボタンが押された場合に開始されます
-                          $('.btn-danger').on('click', function() {
+                          $('.btn-danger').on('click', function(e)) {
                             e.preventDefault();
-                            var deleteConfirm = confirm('削除してよろしいでしょうか？');
+                            var deleteConfirm = confirm('削除してよろしいでしょうか？');    
             //　メッセージをOKした時（true)の場合、次に進みます 
                             if(deleteConfirm == true) {
                             var clickEle = $(this)
              //$(this)は自身（今回は押されたボタンのinputタグ)を参照します
              //　"clickEle"に対して、inputタグの設定が全て代入されます
   
-                            var userID = clickEle.attr('data-user_id');
+                            var productsID = clickEle.attr('data-products_id');
+                            }                
   
             $.ajax({
                     type: 'POST',
-                    url: '/destroy/'+userID,
-                    dataType: 'json',
-                    data: {'id':userID},
-                })
-            });
-        });
+                    url: '/products/{id}',
+                    dataType: 'text',
+                    data: {{ $products->id }},
+                   })
+            }};
+        // 成功
+        .done(function (results){
+            // alert('成功:' + {{ $products->id }});
+
+            // 通信成功時の処理
+            console.log("results : " + results);        
+            window.location.href = "/products.index";     //削除後に画面を遷移
+
+        })
+        // 失敗
+        .fail(function(jqXHR, textStatus, errorThrown){
+            //alert('失敗');
+            console.log("ajax通信に失敗しました");
+            console.log("jqXHR          : " + jqXHR.status); // HTTPステータスが取得
+            console.log("textStatus     : " + textStatus);    // タイムアウト、パースエラー
+            console.log("errorThrown    : " + errorThrown.message); // 例外情報
+            console.log("URL            : " + url);        
+        });    
     </script>
 @endsection
