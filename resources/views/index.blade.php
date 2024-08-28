@@ -79,7 +79,7 @@
             // ここからトークン送信処理
              $.ajaxSetup({
                 headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
 
@@ -95,19 +95,18 @@
              //$(this)は自身（今回は押されたボタンのinputタグ)を参照します
              //　"clickEle"に対して、inputタグの設定が全て代入されます
   
-                            var productsID = clickEle.attr('data-products_id');
+                            var productsID = clickEle.attr('data-user_id');
                             }                
   
             $.ajax({
+                    url: '/products/' + productsID,
                     type: 'POST',
-                    url: '/products/{id}',
-                    dataType: 'text',
-                    data: {{ $products->id }},
+                    data: {'id':productsID,'_method':'DELETE'}
                    })
             }};
         // 成功
-        .done(function (results){
-            // alert('成功:' + {{ $products->id }});
+        　　.done(function (results){
+           
 
             // 通信成功時の処理
             console.log("results : " + results);        
@@ -115,7 +114,7 @@
 
         })
         // 失敗
-        .fail(function(jqXHR, textStatus, errorThrown){
+        　　.fail(function(jqXHR, textStatus, errorThrown){
             //alert('失敗');
             console.log("ajax通信に失敗しました");
             console.log("jqXHR          : " + jqXHR.status); // HTTPステータスが取得
